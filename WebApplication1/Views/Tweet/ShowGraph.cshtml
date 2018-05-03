@@ -1,0 +1,44 @@
+﻿@model WebApplication1.Models.TweetViewModel
+
+@{
+    ViewBag.Title = "Show Graph";
+}
+
+<h2>Sentiment</h2>
+
+Average Sentiment: @Model.AverageSentiment
+
+@if(Model.TweetData != null && Model.TweetData.Count >= 2)
+{
+    for (var i = Model.TweetData.Count-1; i > Model.TweetData.Count - 3; i--)
+    {
+        // only show last 2 tweets
+        var tweet = Model.TweetData[i];
+
+        <div class="EmbeddedTweet-tweet">
+            <blockquote class="Tweet h-entry js-tweetIdInfo subject expanded">
+                <div class="Tweet-header">
+                    <div class="Tweet-brand">
+                        <a data-scribe="element:logo">
+                            <span class="FollowButton-bird">
+                                <div class="Icon Icon--twitter " aria-label="View on Twitter" title="View on Twitter" role="presentation"></div>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="Tweet-body e-entry-content" data-scribe="component:tweet">
+                    <div class="u-hiddenVisually js-inViewportScribingTarget"></div>
+                    <p class="Tweet-text e-entry-title" lang="en" dir="ltr">
+                        @tweet.Text
+                    </p>
+                    <div class="Tweet-metadata dateline">
+                        <a class="u-linkBlend u-url customisable-highlight long-permalink" data-datetime="2014-05-05T22:09:42+0000" data-scribe="element:full_timestamp">
+                            <time class="dt-updated">@tweet.Created.ToLongTimeString() @@@tweet.Name</time>
+                        </a>
+                    </div>
+                </div>
+            </blockquote>
+        </div>
+    }
+}
+

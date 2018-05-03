@@ -1,0 +1,68 @@
+﻿@model WebApplication1.Models.TweetViewModel
+    
+
+
+
+
+@if (Model.TweetData != null)
+{
+    foreach (var tweet in Model.TweetData)
+    {
+
+        <div class="EmbeddedTweet-tweet">
+            <blockquote class="Tweet h-entry js-tweetIdInfo subject expanded" >
+                <div class="Tweet-header">
+                    <div class="Tweet-brand">
+                        <a data-scribe="element:logo">
+                            <span class="FollowButton-bird">
+                                <div class="Icon Icon--twitter " aria-label="View on Twitter" title="View on Twitter" role="presentation"></div>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="Tweet-body e-entry-content" data-scribe="component:tweet">
+                    <div class="u-hiddenVisually js-inViewportScribingTarget"></div>
+                    <p class="Tweet-text e-entry-title" lang="en" dir="ltr">
+                        @tweet.Text
+                    </p>
+                    <div class="Tweet-metadata dateline">
+                        <a class="u-linkBlend u-url customisable-highlight long-permalink" data-datetime="2014-05-05T22:09:42+0000" data-scribe="element:full_timestamp">
+                            <time class="dt-updated" >@tweet.Created.ToLongTimeString() @@@tweet.Name</time>
+                        </a>
+                    </div>
+                </div>
+            </blockquote>
+        </div>
+
+    }
+
+
+
+
+
+
+    using (@Html.BeginForm("AddTweet", "Tweet", FormMethod.Post))
+    {
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input name="tweet.Name" value="" maxlength="100" class="form-control" id="exampleInputEmail1">
+           
+        </div>
+        <div class="form-group">
+            <label for="exampleTextarea">Message</label>
+            <textarea class="form-control" id="exampleTextarea" rows="3" name="tweet.Text" value="" maxlength="255" required></textarea>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+
+}
+else
+{
+
+    Layout = null;
+
+    @Model.AllData
+
+}
